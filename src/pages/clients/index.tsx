@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { useClientsCols } from "./columns"
 
-const EmployeesMain = () => {
+const ClientsMain = () => {
     const columns = useClientsCols()
 
     return (
@@ -51,7 +51,7 @@ const EmployeesMain = () => {
     )
 }
 
-export default EmployeesMain
+export default ClientsMain
 
 const data: Clinet[] = [
     {
