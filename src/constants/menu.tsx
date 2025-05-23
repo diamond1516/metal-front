@@ -2,11 +2,7 @@ import { linkOptions } from "@tanstack/react-router"
 import {
     CalendarRange,
     ChartNoAxesCombined,
-    ClipboardList,
-    Cog,
-    GraduationCap,
     House,
-    Layers,
     NotebookText,
     Settings,
     Users2,

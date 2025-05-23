@@ -1,5 +1,13 @@
-import { createFileRoute } from '@tanstack/react-router'
+import PageLayout from '@/layouts/page-layout'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_main/settings/')({
-  component: () => <div>Hello /_main/settings/!</div>,
+  loader: async () => {
+    throw redirect({ to: '/settings/categories' })
+  },
+  component: () => (
+    <PageLayout>
+      <div>Redirecting to categories…</div>
+    </PageLayout>
+  ),
 })
