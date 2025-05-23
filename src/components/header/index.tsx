@@ -11,6 +11,8 @@ import { ThemeColorToggle } from "./color-toggle"
 import { SidebarTrigger } from "../ui/sidebar"
 import { ReactNode } from "react"
 import HeaderLinks from "./header-links"
+import CreateOrder from "../shared/create-order"
+
 
 type Props = {
     title?: string
@@ -36,6 +38,9 @@ const Header = ({ rigthChildren, leftChildren }: Props) => {
                 </div>
                 <HeaderLinks />
                 {leftChildren ? leftChildren : null}
+            </div>
+            <div className="ml-auto">
+                <CreateOrder/>
             </div>
             <hgroup className="flex items-center gap-4">
                 {rigthChildren ? rigthChildren : null}

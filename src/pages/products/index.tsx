@@ -26,10 +26,6 @@ const ProductsMain = () => {
                             </div>
                         </div>
                         <div className="flex gap-4">
-                            <Button variant={"secondary"}>
-                                <Plus className="h-4 w-4" />
-                                SMS YUBORISH
-                            </Button>
                             <Button>
                                 <Plus className="h-4 w-4" />
                                 Qo'shish

@@ -24,6 +24,13 @@ export const menuItems = [
         items: [],
     }),
     linkOptions({
+        title: "Buyurtmalar",
+        icon: <House width={20} />,
+        to: "/orders",
+        enabled: true,
+        items: [],
+    }),
+    linkOptions({
         title: "Clientlar",
         icon: <Users2 width={20} />,
         to: "/clients",
