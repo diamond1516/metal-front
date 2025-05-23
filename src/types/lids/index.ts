@@ -1,0 +1,3 @@
+type Lid = {
+    name: string
+}
