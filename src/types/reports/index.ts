@@ -1,3 +1,0 @@
-type Reports = {
-    name: string
-}

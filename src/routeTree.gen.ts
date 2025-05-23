@@ -16,6 +16,12 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as MainImport } from './routes/_main'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as MainIndexImport } from './routes/_main/index'
+import { Route as MainReportsImport } from './routes/_main/reports'
+import { Route as MainProductsImport } from './routes/_main/products'
+import { Route as MainClientsImport } from './routes/_main/clients'
+import { Route as MainCheckoutImport } from './routes/_main/checkout'
+import { Route as MainSettingsIndexImport } from './routes/_main/settings/index'
+import { Route as MainSettingsCategoriesImport } from './routes/_main/settings/categories'
 
 // Create Virtual Routes
 
@@ -45,6 +51,42 @@ const AuthAuthLazyRoute = AuthAuthLazyImport.update({
   getParentRoute: () => AuthRoute,
 } as any).lazy(() => import('./routes/_auth/auth.lazy').then((d) => d.Route))
 
+const MainReportsRoute = MainReportsImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => MainRoute,
+} as any)
+
+const MainProductsRoute = MainProductsImport.update({
+  id: '/products',
+  path: '/products',
+  getParentRoute: () => MainRoute,
+} as any)
+
+const MainClientsRoute = MainClientsImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => MainRoute,
+} as any)
+
+const MainCheckoutRoute = MainCheckoutImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => MainRoute,
+} as any)
+
+const MainSettingsIndexRoute = MainSettingsIndexImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => MainRoute,
+} as any)
+
+const MainSettingsCategoriesRoute = MainSettingsCategoriesImport.update({
+  id: '/settings/categories',
+  path: '/settings/categories',
+  getParentRoute: () => MainRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -63,6 +105,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MainImport
       parentRoute: typeof rootRoute
     }
+    '/_main/checkout': {
+      id: '/_main/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof MainCheckoutImport
+      parentRoute: typeof MainImport
+    }
+    '/_main/clients': {
+      id: '/_main/clients'
+      path: '/clients'
+      fullPath: '/clients'
+      preLoaderRoute: typeof MainClientsImport
+      parentRoute: typeof MainImport
+    }
+    '/_main/products': {
+      id: '/_main/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof MainProductsImport
+      parentRoute: typeof MainImport
+    }
+    '/_main/reports': {
+      id: '/_main/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof MainReportsImport
+      parentRoute: typeof MainImport
+    }
     '/_auth/auth': {
       id: '/_auth/auth'
       path: '/auth'
@@ -75,6 +145,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof MainIndexImport
+      parentRoute: typeof MainImport
+    }
+    '/_main/settings/categories': {
+      id: '/_main/settings/categories'
+      path: '/settings/categories'
+      fullPath: '/settings/categories'
+      preLoaderRoute: typeof MainSettingsCategoriesImport
+      parentRoute: typeof MainImport
+    }
+    '/_main/settings/': {
+      id: '/_main/settings/'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof MainSettingsIndexImport
       parentRoute: typeof MainImport
     }
   }
@@ -93,41 +177,100 @@ const AuthRouteChildren: AuthRouteChildren = {
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 
 interface MainRouteChildren {
+  MainCheckoutRoute: typeof MainCheckoutRoute
+  MainClientsRoute: typeof MainClientsRoute
+  MainProductsRoute: typeof MainProductsRoute
+  MainReportsRoute: typeof MainReportsRoute
   MainIndexRoute: typeof MainIndexRoute
+  MainSettingsCategoriesRoute: typeof MainSettingsCategoriesRoute
+  MainSettingsIndexRoute: typeof MainSettingsIndexRoute
 }
 
 const MainRouteChildren: MainRouteChildren = {
+  MainCheckoutRoute: MainCheckoutRoute,
+  MainClientsRoute: MainClientsRoute,
+  MainProductsRoute: MainProductsRoute,
+  MainReportsRoute: MainReportsRoute,
   MainIndexRoute: MainIndexRoute,
+  MainSettingsCategoriesRoute: MainSettingsCategoriesRoute,
+  MainSettingsIndexRoute: MainSettingsIndexRoute,
 }
 
 const MainRouteWithChildren = MainRoute._addFileChildren(MainRouteChildren)
 
 export interface FileRoutesByFullPath {
   '': typeof MainRouteWithChildren
+  '/checkout': typeof MainCheckoutRoute
+  '/clients': typeof MainClientsRoute
+  '/products': typeof MainProductsRoute
+  '/reports': typeof MainReportsRoute
   '/auth': typeof AuthAuthLazyRoute
   '/': typeof MainIndexRoute
+  '/settings/categories': typeof MainSettingsCategoriesRoute
+  '/settings': typeof MainSettingsIndexRoute
 }
 
 export interface FileRoutesByTo {
   '': typeof AuthRouteWithChildren
+  '/checkout': typeof MainCheckoutRoute
+  '/clients': typeof MainClientsRoute
+  '/products': typeof MainProductsRoute
+  '/reports': typeof MainReportsRoute
   '/auth': typeof AuthAuthLazyRoute
   '/': typeof MainIndexRoute
+  '/settings/categories': typeof MainSettingsCategoriesRoute
+  '/settings': typeof MainSettingsIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/_auth': typeof AuthRouteWithChildren
   '/_main': typeof MainRouteWithChildren
+  '/_main/checkout': typeof MainCheckoutRoute
+  '/_main/clients': typeof MainClientsRoute
+  '/_main/products': typeof MainProductsRoute
+  '/_main/reports': typeof MainReportsRoute
   '/_auth/auth': typeof AuthAuthLazyRoute
   '/_main/': typeof MainIndexRoute
+  '/_main/settings/categories': typeof MainSettingsCategoriesRoute
+  '/_main/settings/': typeof MainSettingsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/auth' | '/'
+  fullPaths:
+    | ''
+    | '/checkout'
+    | '/clients'
+    | '/products'
+    | '/reports'
+    | '/auth'
+    | '/'
+    | '/settings/categories'
+    | '/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '' | '/auth' | '/'
-  id: '__root__' | '/_auth' | '/_main' | '/_auth/auth' | '/_main/'
+  to:
+    | ''
+    | '/checkout'
+    | '/clients'
+    | '/products'
+    | '/reports'
+    | '/auth'
+    | '/'
+    | '/settings/categories'
+    | '/settings'
+  id:
+    | '__root__'
+    | '/_auth'
+    | '/_main'
+    | '/_main/checkout'
+    | '/_main/clients'
+    | '/_main/products'
+    | '/_main/reports'
+    | '/_auth/auth'
+    | '/_main/'
+    | '/_main/settings/categories'
+    | '/_main/settings/'
   fileRoutesById: FileRoutesById
 }
 
@@ -166,8 +309,30 @@ export const routeTree = rootRoute
     "/_main": {
       "filePath": "_main.tsx",
       "children": [
-        "/_main/"
+        "/_main/checkout",
+        "/_main/clients",
+        "/_main/products",
+        "/_main/reports",
+        "/_main/",
+        "/_main/settings/categories",
+        "/_main/settings/"
       ]
+    },
+    "/_main/checkout": {
+      "filePath": "_main/checkout.tsx",
+      "parent": "/_main"
+    },
+    "/_main/clients": {
+      "filePath": "_main/clients.tsx",
+      "parent": "/_main"
+    },
+    "/_main/products": {
+      "filePath": "_main/products.tsx",
+      "parent": "/_main"
+    },
+    "/_main/reports": {
+      "filePath": "_main/reports.tsx",
+      "parent": "/_main"
     },
     "/_auth/auth": {
       "filePath": "_auth/auth.lazy.tsx",
@@ -175,6 +340,14 @@ export const routeTree = rootRoute
     },
     "/_main/": {
       "filePath": "_main/index.tsx",
+      "parent": "/_main"
+    },
+    "/_main/settings/categories": {
+      "filePath": "_main/settings/categories.tsx",
+      "parent": "/_main"
+    },
+    "/_main/settings/": {
+      "filePath": "_main/settings/index.tsx",
       "parent": "/_main"
     }
   }

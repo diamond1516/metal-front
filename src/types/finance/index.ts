@@ -1,3 +1,0 @@
-type Finance = {
-    name: string
-}
